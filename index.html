@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storm - AI Companion</title>
+    <title>Storm - AI Chat & Games Platform</title>
     <style>
         * {
             margin: 0;
@@ -11,135 +11,133 @@
             box-sizing: border-box;
         }
 
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #1e40af;
+            --accent-color: #f59e0b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --bg-light: #f9fafb;
+            --bg-dark: #1f2937;
+            --text-light: #111827;
+            --text-dark: #f3f4f6;
+            --border-light: #e5e7eb;
+            --border-dark: #374151;
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            color: #fff;
+            background-color: var(--bg-light);
+            color: var(--text-light);
+            transition: background-color 0.3s, color 0.3s;
+            line-height: 1.6;
         }
 
-        .container {
-            width: 100%;
-            max-width: 900px;
-            height: 90vh;
-            background: rgba(20, 20, 40, 0.95);
+        body.dark-mode {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        /* Header Navigation */
+        header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .logo-icon {
+            font-size: 2rem;
+        }
+
+        nav {
+            display: flex;
+            gap: 0;
+            flex-wrap: wrap;
+        }
+
+        nav button {
+            background: none;
+            border: none;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s;
+            border-bottom: 3px solid transparent;
+        }
+
+        nav button:hover,
+        nav button.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-bottom-color: var(--accent-color);
+        }
+
+        .header-controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .lang-toggle,
+        .dark-toggle {
+            background-color: rgba(255, 255, 255, 0.2);
+            border: 2px solid white;
+            color: white;
+            padding: 0.5rem 1rem;
             border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
-                        0 0 40px rgba(100, 200, 255, 0.1);
-            display: flex;
-            flex-direction: column;
-            border: 2px solid rgba(100, 200, 255, 0.2);
-            overflow: hidden;
-        }
-
-        /* Header */
-        .header {
-            background: linear-gradient(135deg, rgba(100, 200, 255, 0.1), rgba(150, 100, 255, 0.1));
-            padding: 20px;
-            border-bottom: 2px solid rgba(100, 200, 255, 0.2);
-            text-align: center;
-        }
-
-        .header h1 {
-            font-size: 28px;
-            font-weight: 700;
-            background: linear-gradient(135deg, #64c8ff, #9664ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(100, 200, 255, 0.3);
-        }
-
-        .header p {
-            font-size: 12px;
-            color: #a0a0c0;
-            margin-top: 5px;
-        }
-
-        /* Avatar Section */
-        .avatar-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 30px 20px 20px;
-            background: rgba(40, 40, 80, 0.5);
-            border-bottom: 1px solid rgba(100, 200, 255, 0.1);
-        }
-
-        .avatar-container {
-            position: relative;
-            width: 140px;
-            height: 140px;
-            margin-bottom: 15px;
-        }
-
-        .avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #64c8ff, #9664ff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 70px;
-            box-shadow: 0 0 30px rgba(100, 200, 255, 0.4),
-                        inset 0 0 20px rgba(255, 255, 255, 0.1);
-            animation: avatar-pulse 3s ease-in-out infinite;
-            border: 3px solid rgba(100, 200, 255, 0.5);
-        }
-
-        @keyframes avatar-pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .emotion {
-            text-align: center;
-            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.9rem;
             font-weight: 600;
-            color: #64c8ff;
-            margin-top: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
         }
 
-        .status-indicator {
-            width: 12px;
-            height: 12px;
-            background: #00ff88;
-            border-radius: 50%;
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            box-shadow: 0 0 10px #00ff88;
-            animation: status-pulse 2s ease-in-out infinite;
+        .lang-toggle:hover,
+        .dark-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+            transform: scale(1.05);
         }
 
-        @keyframes status-pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        /* Main Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            min-height: calc(100vh - 200px);
         }
 
-        /* Chat Area */
-        .chat-area {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
+        /* Section Styles */
+        .section {
+            display: none;
+            animation: fadeIn 0.5s;
         }
 
-        .message {
-            display: flex;
-            animation: fade-in 0.3s ease-in;
-            word-wrap: break-word;
+        .section.active {
+            display: block;
         }
 
-        @keyframes fade-in {
+        @keyframes fadeIn {
             from {
                 opacity: 0;
                 transform: translateY(10px);
@@ -150,303 +148,1359 @@
             }
         }
 
-        .user-message {
-            justify-content: flex-end;
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            color: var(--primary-color);
+            text-align: center;
         }
 
-        .user-text {
-            background: linear-gradient(135deg, #64c8ff, #9664ff);
-            color: #fff;
-            padding: 12px 16px;
-            border-radius: 15px;
-            max-width: 70%;
-            word-break: break-word;
-            box-shadow: 0 4px 15px rgba(100, 200, 255, 0.2);
+        body.dark-mode .section-title {
+            color: var(--accent-color);
         }
 
-        .ai-message {
-            justify-content: flex-start;
+        /* AI Chat Section */
+        .chat-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
-        .ai-text {
-            background: rgba(50, 50, 100, 0.8);
-            color: #e0e0ff;
-            padding: 12px 16px;
-            border-radius: 15px;
-            max-width: 70%;
-            word-break: break-word;
-            border-left: 3px solid #64c8ff;
-            box-shadow: 0 4px 15px rgba(100, 200, 255, 0.1);
-        }
-
-        /* Input Area */
-        .input-area {
-            padding: 20px;
-            background: rgba(20, 20, 40, 0.8);
-            border-top: 2px solid rgba(100, 200, 255, 0.2);
+        .chat-box {
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            background: white;
+            height: 500px;
             display: flex;
-            gap: 10px;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
 
-        .input-field {
+        body.dark-mode .chat-box {
+            background: var(--bg-dark);
+            border-color: var(--border-dark);
+        }
+
+        .chat-messages {
             flex: 1;
-            background: rgba(40, 40, 80, 0.6);
-            border: 2px solid rgba(100, 200, 255, 0.2);
+            overflow-y: auto;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .message {
+            display: flex;
+            gap: 0.75rem;
+            animation: slideIn 0.3s;
+        }
+
+        .message.user {
+            flex-direction: row-reverse;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 0.75rem 1rem;
             border-radius: 10px;
-            padding: 12px 16px;
-            color: #fff;
-            font-size: 14px;
-            transition: all 0.3s ease;
+            word-wrap: break-word;
         }
 
-        .input-field:focus {
-            outline: none;
-            border-color: #64c8ff;
-            background: rgba(40, 40, 80, 0.9);
-            box-shadow: 0 0 15px rgba(100, 200, 255, 0.2);
+        .message.ai .message-content {
+            background: var(--bg-light);
+            border-left: 4px solid var(--primary-color);
         }
 
-        .input-field::placeholder {
-            color: #808080;
+        body.dark-mode .message.ai .message-content {
+            background: var(--border-dark);
+        }
+
+        .message.user .message-content {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .chat-input-area {
+            padding: 1rem;
+            border-top: 2px solid var(--border-light);
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        body.dark-mode .chat-input-area {
+            border-top-color: var(--border-dark);
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .chat-input {
+            background: var(--border-dark);
+            border-color: var(--border-dark);
+            color: var(--text-dark);
         }
 
         .send-btn {
-            background: linear-gradient(135deg, #64c8ff, #9664ff);
-            color: #fff;
+            padding: 0.75rem 1.5rem;
+            background: var(--primary-color);
+            color: white;
             border: none;
-            border-radius: 10px;
-            padding: 12px 24px;
-            font-size: 14px;
-            font-weight: 600;
+            border-radius: 8px;
             cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(100, 200, 255, 0.3);
+            font-weight: 600;
+            transition: all 0.3s;
         }
 
         .send-btn:hover {
+            background: var(--secondary-color);
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(100, 200, 255, 0.4);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
         }
 
-        .send-btn:active {
-            transform: translateY(0);
+        /* Profile Section */
+        .profile-container {
+            max-width: 600px;
+            margin: 0 auto;
         }
 
-        /* Scrollbar styling */
-        .chat-area::-webkit-scrollbar {
-            width: 8px;
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 2rem;
         }
 
-        .chat-area::-webkit-scrollbar-track {
-            background: rgba(40, 40, 80, 0.3);
+        body.dark-mode .profile-card {
+            background: var(--bg-dark);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--text-light);
+        }
+
+        body.dark-mode label {
+            color: var(--text-dark);
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="date"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            color: var(--text-light);
+            transition: border-color 0.3s;
+        }
+
+        body.dark-mode input[type="text"],
+        body.dark-mode input[type="email"],
+        body.dark-mode input[type="date"],
+        body.dark-mode select,
+        body.dark-mode textarea {
+            background: var(--border-dark);
+            color: var(--text-dark);
+            border-color: var(--border-dark);
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(37, 99, 235, 0.3);
+        }
+
+        .btn-secondary {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #d97706;
+        }
+
+        /* Tests Section */
+        .tests-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .test-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .test-card {
+            background: var(--bg-dark);
+        }
+
+        .test-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .test-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .test-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        body.dark-mode .test-card h3 {
+            color: var(--accent-color);
+        }
+
+        .test-card p {
+            color: #666;
+            margin-bottom: 1.5rem;
+        }
+
+        body.dark-mode .test-card p {
+            color: #aaa;
+        }
+
+        /* Questions Styles */
+        .question-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        body.dark-mode .question-container {
+            background: var(--bg-dark);
+        }
+
+        .question-text {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        body.dark-mode .question-text {
+            color: var(--accent-color);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            padding: 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+        }
+
+        body.dark-mode .option {
+            border-color: var(--border-dark);
+        }
+
+        .option:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .option:hover {
+            background: var(--border-dark);
+        }
+
+        .option input[type="radio"] {
+            margin-right: 0.75rem;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: var(--border-light);
             border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 2rem;
         }
 
-        .chat-area::-webkit-scrollbar-thumb {
-            background: rgba(100, 200, 255, 0.4);
-            border-radius: 10px;
+        body.dark-mode .progress-bar {
+            background: var(--border-dark);
         }
 
-        .chat-area::-webkit-scrollbar-thumb:hover {
-            background: rgba(100, 200, 255, 0.6);
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            transition: width 0.3s;
         }
 
-        /* Responsive */
+        /* Games Section */
+        .games-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .game-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        body.dark-mode .game-card {
+            background: var(--bg-dark);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .game-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        body.dark-mode .game-card h3 {
+            color: var(--accent-color);
+        }
+
+        /* Memory Game */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            margin: 2rem auto;
+            max-width: 400px;
+        }
+
+        .memory-card {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .memory-card:hover:not(.matched) {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        .memory-card.flipped {
+            background: white;
+            color: var(--text-light);
+        }
+
+        body.dark-mode .memory-card.flipped {
+            background: var(--border-dark);
+            color: var(--text-dark);
+        }
+
+        .memory-card.matched {
+            cursor: default;
+            opacity: 0.6;
+        }
+
+        /* Trivia Quiz */
+        .trivia-question {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        body.dark-mode .trivia-question {
+            background: var(--bg-dark);
+        }
+
+        .trivia-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .trivia-option {
+            padding: 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        body.dark-mode .trivia-option {
+            border-color: var(--border-dark);
+        }
+
+        .trivia-option:hover {
+            border-color: var(--primary-color);
+            background: var(--bg-light);
+        }
+
+        body.dark-mode .trivia-option:hover {
+            background: var(--border-dark);
+        }
+
+        .trivia-option.correct {
+            background: var(--success-color);
+            color: white;
+            border-color: var(--success-color);
+        }
+
+        .trivia-option.incorrect {
+            background: var(--danger-color);
+            color: white;
+            border-color: var(--danger-color);
+        }
+
+        /* Word Game */
+        .word-game-container {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            max-width: 600px;
+            margin: 2rem auto;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        body.dark-mode .word-game-container {
+            background: var(--bg-dark);
+        }
+
+        .word-display {
+            font-size: 2.5rem;
+            font-weight: bold;
+            letter-spacing: 0.5rem;
+            margin: 1.5rem 0;
+            color: var(--primary-color);
+            font-family: 'Courier New', monospace;
+        }
+
+        body.dark-mode .word-display {
+            color: var(--accent-color);
+        }
+
+        .word-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+            gap: 0.75rem;
+            margin: 1.5rem 0;
+        }
+
+        .letter-btn {
+            padding: 0.75rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        .letter-btn:hover:not(:disabled) {
+            background: var(--secondary-color);
+            transform: scale(1.05);
+        }
+
+        .letter-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .word-input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        body.dark-mode .word-input {
+            background: var(--border-dark);
+            border-color: var(--border-dark);
+            color: var(--text-dark);
+        }
+
+        /* Score Display */
+        .score-display {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 1.5rem auto;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .score-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-light);
+            border-top: 2px solid var(--border-light);
+            padding: 2rem 1rem;
+            text-align: center;
+            color: #666;
+        }
+
+        body.dark-mode footer {
+            background: var(--bg-dark);
+            border-top-color: var(--border-dark);
+            color: #aaa;
+        }
+
+        /* Responsive Design */
         @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            nav {
+                width: 100%;
+                justify-content: space-between;
+            }
+
+            nav button {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
             .container {
-                height: 95vh;
-                border-radius: 15px;
+                padding: 1rem;
             }
 
-            .header h1 {
-                font-size: 22px;
+            .chat-box {
+                height: 400px;
             }
 
-            .avatar {
-                width: 100px;
-                height: 100px;
-                font-size: 50px;
+            .profile-card {
+                padding: 1.5rem;
             }
 
-            .user-text, .ai-text {
-                max-width: 85%;
+            .tests-container,
+            .games-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .memory-grid {
+                grid-template-columns: repeat(3, 1fr);
+                gap: 0.75rem;
+                max-width: 300px;
+            }
+
+            .trivia-options {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .message-content {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header-controls {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .lang-toggle,
+            .dark-toggle {
+                width: 100%;
+            }
+
+            nav button {
+                padding: 0.5rem;
+                font-size: 0.8rem;
+            }
+
+            .memory-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .word-display {
+                font-size: 1.8rem;
+                letter-spacing: 0.25rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>⚡ Storm</h1>
-            <p>Advanced AI Companion</p>
-        </div>
-
-        <div class="avatar-section">
-            <div class="avatar-container">
-                <div class="avatar">🤖</div>
-                <div class="status-indicator"></div>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <span class="logo-icon">⚡</span>
+                <span>Storm</span>
             </div>
-            <div class="emotion" id="emotion">Listening...</div>
+            <nav>
+                <button class="nav-btn active" data-section="chat">
+                    <span class="nav-text">AI Chat</span>
+                </button>
+                <button class="nav-btn" data-section="profile">
+                    <span class="nav-text">Profile</span>
+                </button>
+                <button class="nav-btn" data-section="tests">
+                    <span class="nav-text">Tests</span>
+                </button>
+                <button class="nav-btn" data-section="games">
+                    <span class="nav-text">Games</span>
+                </button>
+            </nav>
+            <div class="header-controls">
+                <button class="lang-toggle" id="langToggle">EN/FR</button>
+                <button class="dark-toggle" id="darkToggle">🌙</button>
+            </div>
         </div>
+    </header>
 
-        <div class="chat-area" id="chatArea"></div>
+    <main class="container">
+        <!-- AI Chat Section -->
+        <section class="section active" id="chat">
+            <h2 class="section-title" data-en="AI Chat Assistant" data-fr="Assistant Chat IA">AI Chat Assistant</h2>
+            <div class="chat-container">
+                <div class="chat-box">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message ai">
+                            <div class="message-content" data-en="Hello! How can I help you today?" data-fr="Bonjour! Comment puis-je vous aider aujourd'hui?">Hello! How can I help you today?</div>
+                        </div>
+                    </div>
+                    <div class="chat-input-area">
+                        <input type="text" class="chat-input" id="chatInput" placeholder="Type your message..." data-placeholder-en="Type your message..." data-placeholder-fr="Tapez votre message...">
+                        <button class="send-btn" id="sendBtn">Send</button>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-        <div class="input-area">
-            <input 
-                type="text" 
-                id="messageInput" 
-                class="input-field" 
-                placeholder="Tell Storm anything..."
-                autocomplete="off"
-            >
-            <button class="send-btn" id="sendBtn">Send</button>
-        </div>
-    </div>
+        <!-- Profile Section -->
+        <section class="section" id="profile">
+            <h2 class="section-title" data-en="My Profile" data-fr="Mon Profil">My Profile</h2>
+            <div class="profile-container">
+                <div class="profile-card">
+                    <div class="profile-avatar">👤</div>
+                    <form id="profileForm">
+                        <div class="form-group">
+                            <label data-en="First Name" data-fr="Prénom">First Name</label>
+                            <input type="text" id="firstName" placeholder="John" data-placeholder-en="John" data-placeholder-fr="Jean">
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Last Name" data-fr="Nom de famille">Last Name</label>
+                            <input type="text" id="lastName" placeholder="Doe" data-placeholder-en="Doe" data-placeholder-fr="Dupont">
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Email" data-fr="E-mail">Email</label>
+                            <input type="email" id="email" placeholder="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Birth Date" data-fr="Date de naissance">Birth Date</label>
+                            <input type="date" id="birthDate">
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Country" data-fr="Pays">Country</label>
+                            <select id="country">
+                                <option value="">Select a country</option>
+                                <option value="usa">United States</option>
+                                <option value="france">France</option>
+                                <option value="canada">Canada</option>
+                                <option value="uk">United Kingdom</option>
+                                <option value="germany">Germany</option>
+                                <option value="japan">Japan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label data-en="Bio" data-fr="Biographie">Bio</label>
+                            <textarea id="bio" placeholder="Tell us about yourself..." data-placeholder-en="Tell us about yourself..." data-placeholder-fr="Parlez-nous de vous..." rows="4"></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary" data-en="Save Profile" data-fr="Enregistrer le profil">Save Profile</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tests Section -->
+        <section class="section" id="tests">
+            <h2 class="section-title" data-en="Personality & IQ Tests" data-fr="Tests de personnalité et de QI">Personality & IQ Tests</h2>
+            <div class="tests-container" id="testsGrid">
+                <div class="test-card" onclick="startTest('big-five')">
+                    <div class="test-icon">🧠</div>
+                    <h3 data-en="Big Five Personality Test" data-fr="Test de Personnalité Big Five">Big Five Personality Test</h3>
+                    <p data-en="Discover your personality traits" data-fr="Découvrez vos traits de personnalité">Discover your personality traits</p>
+                    <button class="btn btn-primary" data-en="Start Test" data-fr="Commencer le test">Start Test</button>
+                </div>
+                <div class="test-card" onclick="startTest('iq-test')">
+                    <div class="test-icon">🎯</div>
+                    <h3 data-en="IQ Test" data-fr="Test de QI">IQ Test</h3>
+                    <p data-en="5 quick questions to assess your IQ" data-fr="5 questions rapides pour évaluer votre QI">5 quick questions to assess your IQ</p>
+                    <button class="btn btn-primary" data-en="Start Test" data-fr="Commencer le test">Start Test</button>
+                </div>
+            </div>
+            <div id="testContent"></div>
+        </section>
+
+        <!-- Games Section -->
+        <section class="section" id="games">
+            <h2 class="section-title" data-en="Games & Challenges" data-fr="Jeux et défis">Games & Challenges</h2>
+            <div class="games-container" id="gamesGrid">
+                <div class="game-card" onclick="startGame('memory')">
+                    <div class="game-icon">🎮</div>
+                    <h3 data-en="Memory Game" data-fr="Jeu de Mémoire">Memory Game</h3>
+                    <p data-en="Test your memory skills" data-fr="Testez vos compétences en mémoire">Test your memory skills</p>
+                    <button class="btn btn-primary" data-en="Play" data-fr="Jouer">Play</button>
+                </div>
+                <div class="game-card" onclick="startGame('trivia')">
+                    <div class="game-icon">🧩</div>
+                    <h3 data-en="Trivia Quiz" data-fr="Quiz Trivia">Trivia Quiz</h3>
+                    <p data-en="Challenge your knowledge" data-fr="Testez vos connaissances">Challenge your knowledge</p>
+                    <button class="btn btn-primary" data-en="Play" data-fr="Jouer">Play</button>
+                </div>
+                <div class="game-card" onclick="startGame('word')">
+                    <div class="game-icon">📝</div>
+                    <h3 data-en="Word Game" data-fr="Jeu de Mots">Word Game</h3>
+                    <p data-en="Unscramble letters to make words" data-fr="Démêlez les lettres pour former des mots">Unscramble letters to make words</p>
+                    <button class="btn btn-primary" data-en="Play" data-fr="Jouer">Play</button>
+                </div>
+            </div>
+            <div id="gameContent"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Storm - AI Chat & Games Platform. All rights reserved.</p>
+    </footer>
 
     <script>
-        const chatArea = document.getElementById('chatArea');
-        const messageInput = document.getElementById('messageInput');
-        const sendBtn = document.getElementById('sendBtn');
-        const emotionDisplay = document.getElementById('emotion');
+        // Language and Theme Management
+        let currentLanguage = 'en';
+        let currentTheme = 'light';
 
-        // AI Response Database with varied, natural responses
-        const aiResponses = {
-            greeting: [
-                "Hey there! What's on your mind?",
-                "Hi! Great to see you. What can I help with?",
-                "Hey! I'm all ears. What's up?",
-                "Welcome! How can I assist you today?"
-            ],
-            help: [
-                "I'm here to chat, answer questions, or just keep you company.",
-                "I can help with information, have conversations, or brainstorm ideas with you.",
-                "Need something? I'm ready to help with whatever you throw at me."
-            ],
-            general: [
-                "That's interesting! Tell me more.",
-                "I see where you're coming from. What do you mean by that?",
-                "Got it! That makes sense.",
-                "Fascinating perspective. What made you think of that?",
-                "I hear you. Any other thoughts on this?"
-            ],
-            curious: [
-                "Oh, that's cool! Want to explore that further?",
-                "Intriguing! What's your take on it?",
-                "That catches my interest. Keep going!",
-                "Now that's something I'd like to hear more about."
-            ],
-            thoughtful: [
-                "That's a deep thought. Have you considered...?",
-                "That requires some serious thinking. Interesting angle.",
-                "You're making me think here. I like that.",
-                "That's philosophical! I respect that."
-            ],
-            gaming: [
-                "Are you a gamer too? What's your favorite game?",
-                "Gaming is incredible! Do you play competitively?",
-                "That reminds me of a gaming scenario. Have you played anything like it?",
-                "Sounds like an epic gaming moment!"
-            ],
-            default: [
-                "Interesting perspective on that!",
-                "I hear what you're saying.",
-                "That's a cool way to look at it.",
-                "Makes sense! Anything else?",
-                "I'm following you on that."
-            ]
-        };
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserPreferences();
+            setupEventListeners();
+            updatePageLanguage();
+        });
 
-        const emotions = [
-            'Listening...',
-            'Thinking...',
-            'Engaged',
-            'Curious',
-            'Focused',
-            'Thoughtful',
-            'Ready to Help',
-            'Intrigued'
-        ];
+        // Setup Event Listeners
+        function setupEventListeners() {
+            // Navigation
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                    e.target.closest('.nav-btn').classList.add('active');
+                    showSection(e.target.closest('.nav-btn').dataset.section);
+                });
+            });
 
-        let emotionIndex = 0;
+            // Language Toggle
+            document.getElementById('langToggle').addEventListener('click', toggleLanguage);
 
-        // Update emotion display
-        function updateEmotion() {
-            emotionDisplay.textContent = emotions[emotionIndex];
-            emotionIndex = (emotionIndex + 1) % emotions.length;
+            // Dark Mode Toggle
+            document.getElementById('darkToggle').addEventListener('click', toggleDarkMode);
+
+            // Chat
+            document.getElementById('sendBtn').addEventListener('click', sendMessage);
+            document.getElementById('chatInput').addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') sendMessage();
+            });
+
+            // Profile Form
+            document.getElementById('profileForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                saveProfile();
+            });
         }
 
-        setInterval(updateEmotion, 4000);
+        // Language Functions
+        function toggleLanguage() {
+            currentLanguage = currentLanguage === 'en' ? 'fr' : 'en';
+            localStorage.setItem('language', currentLanguage);
+            updatePageLanguage();
+        }
 
-        // Get varied AI response
-        function getAIResponse(userMessage) {
-            const lowerMessage = userMessage.toLowerCase();
+        function updatePageLanguage() {
+            document.querySelectorAll('[data-en]').forEach(el => {
+                if (el.hasAttribute('data-' + currentLanguage)) {
+                    el.textContent = el.getAttribute('data-' + currentLanguage);
+                }
+            });
+
+            // Update placeholders
+            document.querySelectorAll('[data-placeholder-' + currentLanguage + ']').forEach(el => {
+                el.placeholder = el.getAttribute('data-placeholder-' + currentLanguage);
+            });
+
+            // Update send button text
+            const sendBtn = document.getElementById('sendBtn');
+            sendBtn.textContent = currentLanguage === 'en' ? 'Send' : 'Envoyer';
+        }
+
+        // Dark Mode Functions
+        function toggleDarkMode() {
+            currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', currentTheme);
+        }
+
+        // Load User Preferences
+        function loadUserPreferences() {
+            const savedLanguage = localStorage.getItem('language');
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedLanguage) {
+                currentLanguage = savedLanguage;
+            }
+
+            if (savedTheme === 'dark') {
+                currentTheme = 'dark';
+                document.body.classList.add('dark-mode');
+            }
+        }
+
+        // Section Navigation
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
             
-            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
-                return getRandomResponse(aiResponses.greeting);
-            }
-            if (lowerMessage.includes('help') || lowerMessage.includes('can you')) {
-                return getRandomResponse(aiResponses.help);
-            }
-            if (lowerMessage.includes('game') || lowerMessage.includes('play') || lowerMessage.includes('gaming')) {
-                return getRandomResponse(aiResponses.gaming);
-            }
-            if (lowerMessage.includes('think') || lowerMessage.includes('what about') || lowerMessage.includes('how do')) {
-                return getRandomResponse(aiResponses.thoughtful);
-            }
-            if (lowerMessage.includes('?')) {
-                return getRandomResponse(aiResponses.curious);
-            }
-            
-            return getRandomResponse(aiResponses.default);
+            // Reset game/test content
+            document.getElementById('gameContent').innerHTML = '';
+            document.getElementById('testContent').innerHTML = '';
         }
 
-        function getRandomResponse(responseArray) {
-            return responseArray[Math.floor(Math.random() * responseArray.length)];
-        }
-
-        // Send message
+        // AI Chat Functions
         function sendMessage() {
-            const message = messageInput.value.trim();
+            const input = document.getElementById('chatInput');
+            const message = input.value.trim();
+
             if (!message) return;
 
             // Add user message
             addMessage(message, 'user');
-            messageInput.value = '';
-            messageInput.focus();
+            input.value = '';
 
-            // Simulate AI thinking and response
+            // Simulate AI response
             setTimeout(() => {
-                const aiResponse = getAIResponse(message);
+                const responses = {
+                    en: [
+                        "That's interesting! Tell me more.",
+                        "I understand. How can I assist you further?",
+                        "Great question! Let me think about that.",
+                        "I appreciate your input. Is there anything else?"
+                    ],
+                    fr: [
+                        "C'est intéressant! Dites-moi plus.",
+                        "Je comprends. Comment puis-je vous aider davantage?",
+                        "Bonne question! Laissez-moi y réfléchir.",
+                        "J'apprécie votre contribution. Y a-t-il autre chose?"
+                    ]
+                };
+
+                const responseArray = responses[currentLanguage];
+                const aiResponse = responseArray[Math.floor(Math.random() * responseArray.length)];
                 addMessage(aiResponse, 'ai');
-                emotionDisplay.textContent = 'Engaged';
-            }, 600);
+            }, 500);
         }
 
         function addMessage(text, sender) {
-            const messageDiv = document.createElement('div');
-            messageDiv.class = `message ${sender}-message`;
-            
-            const textDiv = document.createElement('div');
-            textDiv.className = `${sender}-text`;
-            textDiv.textContent = text;
-            
-            messageDiv.appendChild(textDiv);
-            chatArea.appendChild(messageDiv);
-            
-            // Scroll to bottom
-            chatArea.scrollTop = chatArea.scrollHeight;
+            const messagesContainer = document.getElementById('chatMessages');
+            const messageEl = document.createElement('div');
+            messageEl.className = `message ${sender}`;
+            messageEl.innerHTML = `<div class="message-content">${text}</div>`;
+            messagesContainer.appendChild(messageEl);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
         }
 
-        // Event listeners
-        sendBtn.addEventListener('click', sendMessage);
-        messageInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendMessage();
-        });
+        // Profile Functions
+        function saveProfile() {
+            const profile = {
+                firstName: document.getElementById('firstName').value,
+                lastName: document.getElementById('lastName').value,
+                email: document.getElementById('email').value,
+                birthDate: document.getElementById('birthDate').value,
+                country: document.getElementById('country').value,
+                bio: document.getElementById('bio').value
+            };
 
-        // Initial greeting
-        window.addEventListener('load', () => {
-            addMessage("Hey! I'm Storm, your AI companion. What would you like to chat about?", 'ai');
-        });
+            localStorage.setItem('userProfile', JSON.stringify(profile));
+            alert(currentLanguage === 'en' ? 'Profile saved!' : 'Profil enregistré!');
+        }
+
+        // Load Profile Data
+        function loadProfile() {
+            const profile = JSON.parse(localStorage.getItem('userProfile'));
+            if (profile) {
+                document.getElementById('firstName').value = profile.firstName || '';
+                document.getElementById('lastName').value = profile.lastName || '';
+                document.getElementById('email').value = profile.email || '';
+                document.getElementById('birthDate').value = profile.birthDate || '';
+                document.getElementById('country').value = profile.country || '';
+                document.getElementById('bio').value = profile.bio || '';
+            }
+        }
+
+        // Test Functions
+        function startTest(testType) {
+            const testContent = document.getElementById('testContent');
+            
+            if (testType === 'big-five') {
+                testContent.innerHTML = createBigFiveTest();
+            } else if (testType === 'iq-test') {
+                testContent.innerHTML = createIQTest();
+            }
+        }
+
+        function createBigFiveTest() {
+            const questions = [
+                { en: "I am outgoing and sociable", fr: "Je suis extraverti et sociable" },
+                { en: "I am conscientious and organized", fr: "Je suis consciencieux et organisé" },
+                { en: "I am open to new experiences", fr: "Je suis ouvert à de nouvelles expériences" },
+                { en: "I am agreeable and cooperative", fr: "Je suis agréable et coopératif" },
+                { en: "I am prone to anxiety and worry", fr: "Je suis sujet à l'anxiété et aux soucis" }
+            ];
+
+            let html = `<div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>`;
+
+            questions.forEach((q, i) => {
+                html += `
+                    <div class="question-container">
+                        <div class="question-text">${q[currentLanguage]}</div>
+                        <div class="options">
+                            ${[1, 2, 3, 4, 5].map(rating => `
+                                <label class="option">
+                                    <input type="radio" name="q${i}" value="${rating}">
+                                    ${rating === 1 ? (currentLanguage === 'en' ? 'Strongly Disagree' : 'Pas du tout d\'accord') : ''}
+                                    ${rating === 3 ? (currentLanguage === 'en' ? 'Neutral' : 'Neutre') : ''}
+                                    ${rating === 5 ? (currentLanguage === 'en' ? 'Strongly Agree' : 'Tout à fait d\'accord') : ''}
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `<button class="btn btn-primary" onclick="submitBigFiveTest()">${currentLanguage === 'en' ? 'Submit Test' : 'Soumettre le test'}</button>`;
+
+            return html;
+        }
+
+        function submitBigFiveTest() {
+            let score = 0;
+            for (let i = 0; i < 5; i++) {
+                const selected = document.querySelector(`input[name="q${i}"]:checked`);
+                if (selected) score += parseInt(selected.value);
+            }
+
+            const testContent = document.getElementById('testContent');
+            testContent.innerHTML = `
+                <div class="score-display">
+                    <div>${currentLanguage === 'en' ? 'Your Score' : 'Votre score'}</div>
+                    <div class="score-number">${score}/25</div>
+                    <div>${currentLanguage === 'en' ? 'Test Completed!' : 'Test terminé!'}</div>
+                </div>
+            `;
+        }
+
+        function createIQTest() {
+            const questions = [
+                {
+                    en: "What is 2 + 2?",
+                    fr: "Qu'est-ce que 2 + 2?",
+                    options: { en: ['3', '4', '5', '6'], fr: ['3', '4', '5', '6'] },
+                    correct: 1
+                },
+                {
+                    en: "Which is the largest planet?",
+                    fr: "Quelle est la plus grande planète?",
+                    options: { en: ['Mars', 'Jupiter', 'Saturn', 'Earth'], fr: ['Mars', 'Jupiter', 'Saturne', 'Terre'] },
+                    correct: 1
+                },
+                {
+                    en: "What is the capital of France?",
+                    fr: "Quelle est la capitale de la France?",
+                    options: { en: ['Lyon', 'Paris', 'Marseille', 'Nice'], fr: ['Lyon', 'Paris', 'Marseille', 'Nice'] },
+                    correct: 1
+                },
+                {
+                    en: "How many days in a week?",
+                    fr: "Combien de jours dans une semaine?",
+                    options: { en: ['5', '6', '7', '8'], fr: ['5', '6', '7', '8'] },
+                    correct: 2
+                },
+                {
+                    en: "What is the smallest prime number?",
+                    fr: "Quel est le plus petit nombre premier?",
+                    options: { en: ['1', '2', '3', '5'], fr: ['1', '2', '3', '5'] },
+                    correct: 1
+                }
+            ];
+
+            let html = `<div class="progress-bar"><div class="progress-fill" style="width: 0%"></div></div>`;
+
+            questions.forEach((q, i) => {
+                html += `
+                    <div class="question-container">
+                        <div class="question-text">${q[currentLanguage]}</div>
+                        <div class="options">
+                            ${q.options[currentLanguage].map((opt, idx) => `
+                                <label class="option">
+                                    <input type="radio" name="iq${i}" value="${idx}">
+                                    ${opt}
+                                </label>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            });
+
+            html += `<button class="btn btn-primary" onclick="submitIQTest()">${currentLanguage === 'en' ? 'Submit Test' : 'Soumettre le test'}</button>`;
+
+            document.getElementById('testContent').innerHTML = html;
+            window.iqQuestions = questions;
+        }
+
+        function submitIQTest() {
+            let score = 0;
+            for (let i = 0; i < 5; i++) {
+                const selected = document.querySelector(`input[name="iq${i}"]:checked`);
+                if (selected && parseInt(selected.value) === window.iqQuestions[i].correct) {
+                    score++;
+                }
+            }
+
+            const testContent = document.getElementById('testContent');
+            testContent.innerHTML = `
+                <div class="score-display">
+                    <div>${currentLanguage === 'en' ? 'Your Score' : 'Votre score'}</div>
+                    <div class="score-number">${score}/5</div>
+                    <div>${currentLanguage === 'en' ? 'Test Completed!' : 'Test terminé!'}</div>
+                </div>
+            `;
+        }
+
+        // Game Functions
+        function startGame(gameType) {
+            const gameContent = document.getElementById('gameContent');
+            const gamesGrid = document.getElementById('gamesGrid');
+            gamesGrid.style.display = 'none';
+
+            if (gameType === 'memory') {
+                initMemoryGame();
+            } else if (gameType === 'trivia') {
+                initTriviaGame();
+            } else if (gameType === 'word') {
+                initWordGame();
+            }
+        }
+
+        // Memory Game
+        function initMemoryGame() {
+            const pairs = ['🍎', '🍎', '🍊', '🍊', '🍋', '🍋', '🍌', '🍌',
+                          '🍉', '🍉', '🍇', '🍇', '🍓', '🍓', '🍒', '🍒'];
+            
+            const shuffled = pairs.sort(() => Math.random() - 0.5);
+            let flipped = [];
+            let matched = 0;
+            let moves = 0;
+
+            let html = `
+                <div class="question-container">
+                    <h3 data-en="Memory Game" data-fr="Jeu de Mémoire" style="text-align: center;">Memory Game</h3>
+                    <div class="score-display">
+                        <div>${currentLanguage === 'en' ? 'Matches' : 'Correspondances'}: <span id="matches">0</span>/8</div>
+                        <div>${currentLanguage === 'en' ? 'Moves' : 'Mouvements'}: <span id="moves">0</span></div>
+                    </div>
+                    <div class="memory-grid" id="memoryGrid"></div>
+                    <button class="btn btn-primary" onclick="location.reload()" style="width: 100%; margin-top: 2rem;">${currentLanguage === 'en' ? 'Back to Games' : 'Retour aux jeux'}</button>
+                </div>
+            `;
+
+            document.getElementById('gameContent').innerHTML = html;
+
+            const grid = document.getElementById('memoryGrid');
+            shuffled.forEach((item, idx) => {
+                const card = document.createElement('button');
+                card.className = 'memory-card';
+                card.dataset.value = item;
+                card.dataset.index = idx;
+                card.textContent = '';
+
+                card.addEventListener('click', () => {
+                    if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
+                    if (flipped.length === 2) return;
+
+                    card.classList.add('flipped');
+                    card.textContent = item;
+                    flipped.push(card);
+
+                    if (flipped.length === 2) {
+                        moves++;
+                        document.getElementById('moves').textContent = moves;
+
+                        if (flipped[0].dataset.value === flipped[1].dataset.value) {
+                            flipped[0].classList.add('matched');
+                            flipped[1].classList.add('matched');
+                            matched++;
+                            document.getElementById('matches').textContent = matched;
+                            flipped = [];
+
+                            if (matched === 8) {
+                                setTimeout(() => {
+                                    alert(currentLanguage === 'en' 
+                                        ? `Great! You won in ${moves} moves!` 
+                                        : `Bravo! Vous avez gagné en ${moves} mouvements!`);
+                                }, 500);
+                            }
+                        } else {
+                            setTimeout(() => {
+                                flipped[0].classList.remove('flipped');
+                                flipped[1].classList.remove('flipped');
+                                flipped[0].textContent = '';
+                                flipped[1].textContent = '';
+                                flipped = [];
+                            }, 1000);
+                        }
+                    }
+                });
+
+                grid.appendChild(card);
+            });
+        }
+
+        // Trivia Game
+        function initTriviaGame() {
+            const triviaQuestions = [
+                {
+                    en: "What is the capital of Italy?",
+                    fr: "Quelle est la capitale de l'Italie?",
+                    options: { en: ['Venice', 'Rome', 'Milan', 'Florence'], fr: ['Venise', 'Rome', 'Milan', 'Florence'] },
+                    correct: 1
+                },
+                {
+                    en: "Who painted the Mona Lisa?",
+                    fr: "Qui a peint la Joconde?",
+                    options: { en: ['Van Gogh', 'Leonardo da Vinci', 'Michelangelo', 'Raphael'], fr: ['Van Gogh', 'Léonard de Vinci', 'Michel-Ange', 'Raphaël'] },
+                    correct: 1
+                },
+                {
+                    en: "What is the largest ocean?",
+                    fr: "Quel est le plus grand océan?",
+                    options: { en: ['Atlantic', 'Pacific', 'Indian', 'Arctic'], fr: ['Atlantique', 'Pacifique', 'Indien', 'Arctique'] },
+                    correct: 1
+                }
+            ];
+
+            let currentQuestion = 0;
+            let score = 0;
+
+            function showTriviaQuestion() {
+                const q = triviaQuestions[currentQuestion];
+                const progress = ((currentQuestion + 1) / triviaQuestions.length) * 100;
+
+                let html = `
+                    <div class="question-container">
+                        <div class="progress-bar"><div class="progress-fill" style="width: ${progress}%"></div></div>
+                        <div class="question-text">${q[currentLanguage]}</div>
+                        <div class="trivia-options">
+                            ${q.options[currentLanguage].map((opt, idx) => `
+                                <button class="trivia-option" onclick="selectTriviaAnswer(${idx}, ${q.correct})">${opt}</button>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+
+                document.getElementById('gameContent').innerHTML = html;
+            }
+
+            window.selectTriviaAnswer = (selected, correct) => {
+                const options = document.querySelectorAll('.trivia-option');
+                options.forEach((opt, idx) => {
+                    if (idx === correct) opt.classList.add('correct');
+                    if (idx === selected && idx !== correct) opt.classList.add('incorrect');
+                    opt.disabled = true;
+                });
+
+                if (selected === correct) score++;
+
+                setTimeout(() => {
+                    currentQuestion++;
+                    if (currentQuestion < triviaQuestions.length) {
+                        showTriviaQuestion();
+                    } else {
+                        document.getElementById('gameContent').innerHTML = `
+                            <div class="score-display">
+                                <div>${currentLanguage === 'en' ? 'Your Score' : 'Votre score'}</div>
+                                <div class="score-number">${score}/${triviaQuestions.length}</div>
+                                <button class="btn btn-primary" onclick="location.reload()" style="width: 100%; margin-top: 1rem;">${currentLanguage === 'en' ? 'Back to Games' : 'Retour aux jeux'}</button>
+                            </div>
+                        `;
+                    }
+                }, 1500);
+            };
+
+            showTriviaQuestion();
+        }
+
+        // Word Game
+        function initWordGame() {
+            const words = ['PROGRAMMING', 'JAVASCRIPT', 'FUNCTION', 'VARIABLE', 'DATABASE'];
+            const currentWord = words[Math.floor(Math.random() * words.length)];
+            const shuffled = currentWord.split('').sort(() => Math.random() - 0.5);
+
+            let html = `
+                <div class="word-game-container">
+                    <h3>${currentLanguage === 'en' ? 'Word Game' : 'Jeu de Mots'}</h3>
+                    <div class="word-display" id="wordDisplay">${'_'.repeat(currentWord.length)}</div>
+                    <div class="word-buttons" id="letterButtons"></div>
+                    <input type="text" class="word-input" id="wordInput" placeholder="${currentLanguage === 'en' ? 'Type your answer...' : 'Tapez votre réponse...'}" data-placeholder-en="Type your answer..." data-placeholder-fr="Tapez votre réponse...">
+                    <button class="btn btn-primary" onclick="checkWordAnswer()">${currentLanguage === 'en' ? 'Check' : 'Vérifier'}</button>
+                    <button class="btn btn-secondary" onclick="location.reload()" style="width: 100%; margin-top: 0.5rem;">${currentLanguage === 'en' ? 'Back to Games' : 'Retour aux jeux'}</button>
+                </div>
+            `;
+
+            document.getElementById('gameContent').innerHTML = html;
+
+            const buttons = document.getElementById('letterButtons');
+            shuffled.forEach((letter, idx) => {
+                const btn = document.createElement('button');
+                btn.className = 'letter-btn';
+                btn.textContent = letter;
+                btn.onclick = () => {
+                    document.getElementById('wordInput').value += letter;
+                    btn.disabled = true;
+                };
+                buttons.appendChild(btn);
+            });
+
+            window.checkWordAnswer = () => {
+                const answer = document.getElementById('wordInput').value.toUpperCase();
+                if (answer === currentWord) {
+                    alert(currentLanguage === 'en' ? 'Correct!' : 'Correct!');
+                } else {
+                    alert(currentLanguage === 'en' ? 'Incorrect. Try again!' : 'Incorrect. Réessayez!');
+                }
+            };
+
+            window.currentWord = currentWord;
+        }
+
+        // Load profile on page load
+        loadProfile();
     </script>
 </body>
 </html>
