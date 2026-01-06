@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storm - AI Mental Health Companion | Compagnon de Santé Mentale IA</title>
+    <title>Storm - AI Companion</title>
     <style>
         * {
             margin: 0;
@@ -11,183 +11,135 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary-color: #667eea;
-            --secondary-color: #764ba2;
-            --success-color: #48bb78;
-            --warning-color: #ed8936;
-            --danger-color: #f56565;
-            --light-bg: #f7fafc;
-            --dark-text: #2d3748;
-            --border-color: #e2e8f0;
-        }
-
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
             min-height: 100vh;
-            color: var(--dark-text);
-            transition: background 0.3s ease;
-        }
-
-        body.dark-mode {
-            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
-            color: #e2e8f0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #fff;
         }
 
         .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-
-        /* Header & Language Toggle */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        body.dark-mode header {
-            background: rgba(45, 55, 72, 0.95);
-            color: #e2e8f0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-size: 28px;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        body.dark-mode .logo {
-            color: #63b3ed;
-        }
-
-        .logo-icon {
-            font-size: 32px;
-        }
-
-        .header-controls {
-            display: flex;
-            gap: 20px;
-            align-items: center;
-        }
-
-        .language-toggle {
-            display: flex;
-            gap: 10px;
-            background: var(--light-bg);
-            padding: 8px;
-            border-radius: 8px;
-            border: 2px solid var(--border-color);
-        }
-
-        body.dark-mode .language-toggle {
-            background: #2d3748;
-            border-color: #4a5568;
-        }
-
-        .lang-btn {
-            padding: 8px 16px;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-weight: 600;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            color: var(--dark-text);
-        }
-
-        body.dark-mode .lang-btn {
-            color: #cbd5e0;
-        }
-
-        .lang-btn.active {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        .dark-mode-toggle {
-            background: var(--light-bg);
-            border: none;
-            padding: 10px 15px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            border: 2px solid var(--border-color);
-        }
-
-        body.dark-mode .dark-mode-toggle {
-            background: #2d3748;
-            border-color: #4a5568;
-        }
-
-        /* Main Content */
-        .main-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            margin-bottom: 30px;
-        }
-
-        /* Chat Section */
-        .chat-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 900px;
+            height: 90vh;
+            background: rgba(20, 20, 40, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5), 
+                        0 0 40px rgba(100, 200, 255, 0.1);
             display: flex;
             flex-direction: column;
-            max-height: 600px;
+            border: 2px solid rgba(100, 200, 255, 0.2);
+            overflow: hidden;
         }
 
-        body.dark-mode .chat-section {
-            background: rgba(45, 55, 72, 0.95);
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, rgba(100, 200, 255, 0.1), rgba(150, 100, 255, 0.1));
+            padding: 20px;
+            border-bottom: 2px solid rgba(100, 200, 255, 0.2);
+            text-align: center;
         }
 
-        .chat-header {
-            font-size: 24px;
-            font-weight: bold;
-            margin-bottom: 20px;
-            color: var(--primary-color);
+        .header h1 {
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #64c8ff, #9664ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(100, 200, 255, 0.3);
         }
 
-        body.dark-mode .chat-header {
-            color: #63b3ed;
+        .header p {
+            font-size: 12px;
+            color: #a0a0c0;
+            margin-top: 5px;
         }
 
-        .chat-messages {
+        /* Avatar Section */
+        .avatar-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 30px 20px 20px;
+            background: rgba(40, 40, 80, 0.5);
+            border-bottom: 1px solid rgba(100, 200, 255, 0.1);
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin-bottom: 15px;
+        }
+
+        .avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #64c8ff, #9664ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 70px;
+            box-shadow: 0 0 30px rgba(100, 200, 255, 0.4),
+                        inset 0 0 20px rgba(255, 255, 255, 0.1);
+            animation: avatar-pulse 3s ease-in-out infinite;
+            border: 3px solid rgba(100, 200, 255, 0.5);
+        }
+
+        @keyframes avatar-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .emotion {
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #64c8ff;
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .status-indicator {
+            width: 12px;
+            height: 12px;
+            background: #00ff88;
+            border-radius: 50%;
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            box-shadow: 0 0 10px #00ff88;
+            animation: status-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes status-pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Chat Area */
+        .chat-area {
             flex: 1;
             overflow-y: auto;
-            margin-bottom: 20px;
-            padding: 15px;
-            background: var(--light-bg);
-            border-radius: 10px;
-            max-height: 350px;
-        }
-
-        body.dark-mode .chat-messages {
-            background: #2d3748;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
         .message {
-            margin-bottom: 15px;
-            padding: 12px 15px;
-            border-radius: 10px;
-            animation: slideIn 0.3s ease;
+            display: flex;
+            animation: fade-in 0.3s ease-in;
+            word-wrap: break-word;
         }
 
-        @keyframes slideIn {
+        @keyframes fade-in {
             from {
                 opacity: 0;
                 transform: translateY(10px);
@@ -198,1159 +150,303 @@
             }
         }
 
-        .message.user {
-            background: var(--primary-color);
-            color: white;
-            margin-left: auto;
-            max-width: 80%;
-            text-align: right;
+        .user-message {
+            justify-content: flex-end;
         }
 
-        .message.ai {
-            background: #e6f3ff;
-            color: var(--dark-text);
-            margin-right: auto;
-            max-width: 80%;
+        .user-text {
+            background: linear-gradient(135deg, #64c8ff, #9664ff);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-break: break-word;
+            box-shadow: 0 4px 15px rgba(100, 200, 255, 0.2);
         }
 
-        body.dark-mode .message.ai {
-            background: #2c5282;
-            color: #cbd5e0;
+        .ai-message {
+            justify-content: flex-start;
         }
 
-        .emotion-indicator {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 5px;
-            font-size: 12px;
-            font-weight: 600;
-            margin-top: 8px;
+        .ai-text {
+            background: rgba(50, 50, 100, 0.8);
+            color: #e0e0ff;
+            padding: 12px 16px;
+            border-radius: 15px;
+            max-width: 70%;
+            word-break: break-word;
+            border-left: 3px solid #64c8ff;
+            box-shadow: 0 4px 15px rgba(100, 200, 255, 0.1);
         }
 
-        .emotion-sad {
-            background: #fed7d7;
-            color: #742a2a;
-        }
-
-        .emotion-anxious {
-            background: #feebc8;
-            color: #7c2d12;
-        }
-
-        .emotion-neutral {
-            background: #bee3f8;
-            color: #2c5282;
-        }
-
-        .emotion-happy {
-            background: #c6f6d5;
-            color: #22543d;
-        }
-
+        /* Input Area */
         .input-area {
-            display: flex;
-            gap: 10px;
-        }
-
-        .input-area input {
-            flex: 1;
-            padding: 12px 15px;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s ease;
-        }
-
-        body.dark-mode .input-area input {
-            background: #2d3748;
-            border-color: #4a5568;
-            color: #cbd5e0;
-        }
-
-        .input-area input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-        }
-
-        .input-area button {
-            padding: 12px 24px;
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .input-area button:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        body.dark-mode .sidebar {
-            background: rgba(45, 55, 72, 0.95);
-        }
-
-        .sidebar-section {
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 20px;
-        }
-
-        body.dark-mode .sidebar-section {
-            border-color: #4a5568;
-        }
-
-        .sidebar-section:last-child {
-            border-bottom: none;
-        }
-
-        .section-title {
-            font-size: 18px;
-            font-weight: bold;
-            margin-bottom: 15px;
-            color: var(--primary-color);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-
-        body.dark-mode .section-title {
-            color: #63b3ed;
-        }
-
-        /* Emotion Detection */
-        .emotion-stats {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-
-        .emotion-item {
-            padding: 12px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 600;
-            background: var(--light-bg);
-        }
-
-        body.dark-mode .emotion-item {
-            background: #2d3748;
-        }
-
-        .emotion-item.detected {
-            background: var(--primary-color);
-            color: white;
-        }
-
-        /* Memory Tracking */
-        .memory-list {
-            max-height: 200px;
-            overflow-y: auto;
-            background: var(--light-bg);
-            padding: 12px;
-            border-radius: 8px;
-        }
-
-        body.dark-mode .memory-list {
-            background: #2d3748;
-        }
-
-        .memory-item {
-            padding: 8px;
-            margin-bottom: 8px;
-            background: white;
-            border-left: 3px solid var(--primary-color);
-            border-radius: 4px;
-            font-size: 13px;
-        }
-
-        body.dark-mode .memory-item {
-            background: #1a202c;
-            border-left-color: #63b3ed;
-        }
-
-        /* Safety Alerts */
-        .alert {
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            border-left: 4px solid var(--warning-color);
-            display: flex;
-            gap: 12px;
-            align-items: flex-start;
-        }
-
-        .alert.danger {
-            border-left-color: var(--danger-color);
-            background: #fff5f5;
-        }
-
-        body.dark-mode .alert.danger {
-            background: #742a2a;
-        }
-
-        .alert.warning {
-            border-left-color: var(--warning-color);
-            background: #fffaf0;
-        }
-
-        body.dark-mode .alert.warning {
-            background: #7c2d12;
-        }
-
-        .alert.info {
-            border-left-color: var(--primary-color);
-            background: #eff6ff;
-        }
-
-        body.dark-mode .alert.info {
-            background: #2c5282;
-        }
-
-        .alert-icon {
-            font-size: 20px;
-            margin-top: 2px;
-        }
-
-        .alert-content {
-            flex: 1;
-        }
-
-        .alert-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-        }
-
-        .alert-message {
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        /* Resources */
-        .resources-grid {
-            display: grid;
-            gap: 15px;
-        }
-
-        .resource-card {
-            background: var(--light-bg);
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid var(--success-color);
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-
-        body.dark-mode .resource-card {
-            background: #2d3748;
-        }
-
-        .resource-card:hover {
-            transform: translateX(5px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .resource-name {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--dark-text);
-        }
-
-        body.dark-mode .resource-name {
-            color: #cbd5e0;
-        }
-
-        .resource-info {
-            font-size: 13px;
-            color: #718096;
-            line-height: 1.4;
-        }
-
-        body.dark-mode .resource-info {
-            color: #a0aec0;
-        }
-
-        .resource-phone {
-            display: inline-block;
-            margin-top: 8px;
-            padding: 6px 12px;
-            background: var(--success-color);
-            color: white;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .resource-phone:hover {
-            opacity: 0.9;
-        }
-
-        /* Bottom Section */
-        .bottom-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-        }
-
-        /* Recommendations */
-        .recommendations {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        body.dark-mode .recommendations {
-            background: rgba(45, 55, 72, 0.95);
-        }
-
-        .recommendations-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .recommendation-item {
-            padding: 15px;
-            background: var(--light-bg);
-            border-radius: 8px;
-            border-left: 4px solid var(--primary-color);
-            transition: all 0.3s ease;
-        }
-
-        body.dark-mode .recommendation-item {
-            background: #2d3748;
-        }
-
-        .recommendation-item:hover {
-            transform: translateX(5px);
-        }
-
-        .recommendation-title {
-            font-weight: 600;
-            margin-bottom: 5px;
-            color: var(--dark-text);
-        }
-
-        body.dark-mode .recommendation-title {
-            color: #cbd5e0;
-        }
-
-        .recommendation-description {
-            font-size: 13px;
-            color: #718096;
-            line-height: 1.4;
-        }
-
-        body.dark-mode .recommendation-description {
-            color: #a0aec0;
-        }
-
-        /* Stats */
-        .stats-section {
-            background: rgba(255, 255, 255, 0.95);
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        body.dark-mode .stats-section {
-            background: rgba(45, 55, 72, 0.95);
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
             padding: 20px;
+            background: rgba(20, 20, 40, 0.8);
+            border-top: 2px solid rgba(100, 200, 255, 0.2);
+            display: flex;
+            gap: 10px;
+        }
+
+        .input-field {
+            flex: 1;
+            background: rgba(40, 40, 80, 0.6);
+            border: 2px solid rgba(100, 200, 255, 0.2);
             border-radius: 10px;
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 32px;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-size: 13px;
-            opacity: 0.9;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 1024px) {
-            .main-content {
-                grid-template-columns: 1fr;
-            }
-
-            .bottom-section {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            header {
-                flex-direction: column;
-                gap: 15px;
-                text-align: center;
-            }
-
-            .header-controls {
-                width: 100%;
-                justify-content: center;
-            }
-
-            .logo {
-                justify-content: center;
-            }
-
-            .emotion-stats {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-
-        ::-webkit-scrollbar-track {
-            background: var(--light-bg);
-        }
-
-        body.dark-mode ::-webkit-scrollbar-track {
-            background: #2d3748;
-        }
-
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary-color);
-            border-radius: 4px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--secondary-color);
-        }
-
-        /* Loading Animation */
-        .typing-indicator {
-            display: flex;
-            gap: 4px;
-            align-items: center;
-        }
-
-        .typing-indicator span {
-            width: 8px;
-            height: 8px;
-            background: var(--primary-color);
-            border-radius: 50%;
-            animation: typing 1.4s infinite;
-        }
-
-        .typing-indicator span:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-indicator span:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typing {
-            0%, 60%, 100% {
-                opacity: 0.5;
-                transform: translateY(0);
-            }
-            30% {
-                opacity: 1;
-                transform: translateY(-10px);
-            }
-        }
-
-        /* Footer */
-        footer {
-            text-align: center;
-            padding: 20px;
-            color: white;
-            opacity: 0.9;
+            padding: 12px 16px;
+            color: #fff;
             font-size: 14px;
+            transition: all 0.3s ease;
         }
 
-        body.dark-mode footer {
-            color: #cbd5e0;
+        .input-field:focus {
+            outline: none;
+            border-color: #64c8ff;
+            background: rgba(40, 40, 80, 0.9);
+            box-shadow: 0 0 15px rgba(100, 200, 255, 0.2);
+        }
+
+        .input-field::placeholder {
+            color: #808080;
+        }
+
+        .send-btn {
+            background: linear-gradient(135deg, #64c8ff, #9664ff);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(100, 200, 255, 0.3);
+        }
+
+        .send-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(100, 200, 255, 0.4);
+        }
+
+        .send-btn:active {
+            transform: translateY(0);
+        }
+
+        /* Scrollbar styling */
+        .chat-area::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-area::-webkit-scrollbar-track {
+            background: rgba(40, 40, 80, 0.3);
+            border-radius: 10px;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb {
+            background: rgba(100, 200, 255, 0.4);
+            border-radius: 10px;
+        }
+
+        .chat-area::-webkit-scrollbar-thumb:hover {
+            background: rgba(100, 200, 255, 0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                height: 95vh;
+                border-radius: 15px;
+            }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
+            .avatar {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
+
+            .user-text, .ai-text {
+                max-width: 85%;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- Header -->
-        <header>
-            <div class="logo">
-                <span class="logo-icon">⛈️</span>
-                <span>Storm</span>
-            </div>
-            <div class="header-controls">
-                <div class="language-toggle">
-                    <button class="lang-btn active" data-lang="en" onclick="changeLanguage('en')">English</button>
-                    <button class="lang-btn" data-lang="fr" onclick="changeLanguage('fr')">Français</button>
-                </div>
-                <button class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</button>
-            </div>
-        </header>
-
-        <!-- Main Content -->
-        <div class="main-content">
-            <!-- Chat Section -->
-            <div class="chat-section">
-                <div class="chat-header" data-text="chat-title">Chat with Storm</div>
-                <div class="chat-messages" id="chatMessages">
-                    <div class="message ai">
-                        <div data-text="greeting">Hello! I'm Storm, your AI mental health companion. How are you feeling today?</div>
-                    </div>
-                </div>
-                <div class="input-area">
-                    <input type="text" id="userInput" placeholder="Share your thoughts..." data-placeholder="input-placeholder" onkeypress="handleKeyPress(event)">
-                    <button onclick="sendMessage()" data-text="send-btn">Send</button>
-                </div>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="sidebar">
-                <!-- Emotion Detection -->
-                <div class="sidebar-section">
-                    <div class="section-title">
-                        <span>😊</span>
-                        <span data-text="emotion-detection">Emotion Detection</span>
-                    </div>
-                    <div class="emotion-stats" id="emotionStats">
-                        <div class="emotion-item">
-                            <div data-text="emotion-sad">Sad</div>
-                            <div id="sadCount" style="font-size: 20px; margin-top: 5px;">0%</div>
-                        </div>
-                        <div class="emotion-item">
-                            <div data-text="emotion-anxious">Anxious</div>
-                            <div id="anxiousCount" style="font-size: 20px; margin-top: 5px;">0%</div>
-                        </div>
-                        <div class="emotion-item">
-                            <div data-text="emotion-neutral">Neutral</div>
-                            <div id="neutralCount" style="font-size: 20px; margin-top: 5px;">0%</div>
-                        </div>
-                        <div class="emotion-item">
-                            <div data-text="emotion-happy">Happy</div>
-                            <div id="happyCount" style="font-size: 20px; margin-top: 5px;">0%</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Memory Tracking -->
-                <div class="sidebar-section">
-                    <div class="section-title">
-                        <span>💾</span>
-                        <span data-text="memory-tracking">Memory Tracking</span>
-                    </div>
-                    <div class="memory-list" id="memoryList">
-                        <div class="memory-item" data-text="no-memories">No memories yet</div>
-                    </div>
-                </div>
-
-                <!-- Safety Alerts -->
-                <div class="sidebar-section">
-                    <div class="section-title">
-                        <span>⚠️</span>
-                        <span data-text="safety-alerts">Safety Alerts</span>
-                    </div>
-                    <div id="safetyAlerts"></div>
-                </div>
-            </div>
+        <div class="header">
+            <h1>⚡ Storm</h1>
+            <p>Advanced AI Companion</p>
         </div>
 
-        <!-- Bottom Section -->
-        <div class="bottom-section">
-            <!-- Recommendations -->
-            <div class="recommendations">
-                <div class="section-title">
-                    <span>💡</span>
-                    <span data-text="recommendations">Personalized Recommendations</span>
-                </div>
-                <div class="recommendations-list" id="recommendationsList">
-                    <div class="recommendation-item">
-                        <div class="recommendation-title" data-text="rec-meditation">Meditation</div>
-                        <div class="recommendation-description" data-text="rec-meditation-desc">Practice mindfulness and breathing exercises to reduce anxiety.</div>
-                    </div>
-                    <div class="recommendation-item">
-                        <div class="recommendation-title" data-text="rec-exercise">Exercise</div>
-                        <div class="recommendation-description" data-text="rec-exercise-desc">Regular physical activity improves mental health and mood.</div>
-                    </div>
-                    <div class="recommendation-item">
-                        <div class="recommendation-title" data-text="rec-sleep">Sleep</div>
-                        <div class="recommendation-description" data-text="rec-sleep-desc">Ensure 7-9 hours of quality sleep for mental clarity and emotional regulation.</div>
-                    </div>
-                </div>
+        <div class="avatar-section">
+            <div class="avatar-container">
+                <div class="avatar">🤖</div>
+                <div class="status-indicator"></div>
             </div>
-
-            <!-- Resources -->
-            <div class="recommendations">
-                <div class="section-title">
-                    <span>🆘</span>
-                    <span data-text="mental-health-resources">Mental Health Resources</span>
-                </div>
-                <div class="resources-grid" id="resourcesList">
-                    <!-- Resources will be populated by JavaScript -->
-                </div>
-            </div>
+            <div class="emotion" id="emotion">Listening...</div>
         </div>
 
-        <!-- Stats Section -->
-        <div class="stats-section" style="margin-top: 30px;">
-            <div class="section-title">
-                <span>📊</span>
-                <span data-text="conversation-stats">Conversation Statistics</span>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value" id="messageCount">0</div>
-                    <div class="stat-label" data-text="stat-messages">Messages Exchanged</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="sessionTime">0m</div>
-                    <div class="stat-label" data-text="stat-session-time">Session Duration</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="moodAverage">—</div>
-                    <div class="stat-label" data-text="stat-mood-average">Average Mood</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value" id="topEmotion">—</div>
-                    <div class="stat-label" data-text="stat-top-emotion">Dominant Emotion</div>
-                </div>
-            </div>
-        </div>
+        <div class="chat-area" id="chatArea"></div>
 
-        <!-- Footer -->
-        <footer>
-            <p data-text="footer">Storm © 2026 | Your Mental Health Companion | <a href="#" style="color: inherit;">Privacy Policy</a> | <a href="#" style="color: inherit;">Terms of Service</a></p>
-        </footer>
+        <div class="input-area">
+            <input 
+                type="text" 
+                id="messageInput" 
+                class="input-field" 
+                placeholder="Tell Storm anything..."
+                autocomplete="off"
+            >
+            <button class="send-btn" id="sendBtn">Send</button>
+        </div>
     </div>
 
     <script>
-        // Language Translations
-        const translations = {
-            en: {
-                // Header & UI
-                'chat-title': 'Chat with Storm',
-                'input-placeholder': 'Share your thoughts...',
-                'send-btn': 'Send',
-                'greeting': 'Hello! I\'m Storm, your AI mental health companion. How are you feeling today?',
-                
-                // Sidebar
-                'emotion-detection': 'Emotion Detection',
-                'emotion-sad': 'Sad',
-                'emotion-anxious': 'Anxious',
-                'emotion-neutral': 'Neutral',
-                'emotion-happy': 'Happy',
-                'memory-tracking': 'Memory Tracking',
-                'no-memories': 'No memories yet',
-                'safety-alerts': 'Safety Alerts',
-                
-                // Recommendations
-                'recommendations': 'Personalized Recommendations',
-                'rec-meditation': 'Meditation',
-                'rec-meditation-desc': 'Practice mindfulness and breathing exercises to reduce anxiety.',
-                'rec-exercise': 'Exercise',
-                'rec-exercise-desc': 'Regular physical activity improves mental health and mood.',
-                'rec-sleep': 'Sleep',
-                'rec-sleep-desc': 'Ensure 7-9 hours of quality sleep for mental clarity and emotional regulation.',
-                
-                // Mental Health Resources
-                'mental-health-resources': 'Mental Health Resources',
-                
-                // Stats
-                'conversation-stats': 'Conversation Statistics',
-                'stat-messages': 'Messages Exchanged',
-                'stat-session-time': 'Session Duration',
-                'stat-mood-average': 'Average Mood',
-                'stat-top-emotion': 'Dominant Emotion',
-                
-                // Footer
-                'footer': 'Storm © 2026 | Your Mental Health Companion | Privacy Policy | Terms of Service',
-                
-                // AI Responses
-                'response-sad': 'I understand you\'re feeling sad. It\'s okay to feel this way. Would you like to talk about what\'s troubling you? Remember, seeking support is a sign of strength.',
-                'response-anxious': 'I sense you might be feeling anxious. Take a deep breath. Anxiety is manageable, and I\'m here to help. Would you like to explore some calming techniques?',
-                'response-happy': 'That\'s wonderful to hear! Your positive energy is uplifting. Keep nurturing those good feelings and share what\'s bringing you joy.',
-                'response-neutral': 'Thank you for sharing. I\'m listening and here to support you. Feel free to express anything on your mind.',
-                'response-crisis': 'I\'m concerned about what you\'ve shared. Please reach out to a mental health professional or crisis helpline immediately. Your safety is paramount.',
-            },
-            fr: {
-                // Header & UI
-                'chat-title': 'Discuter avec Storm',
-                'input-placeholder': 'Partagez vos pensées...',
-                'send-btn': 'Envoyer',
-                'greeting': 'Bonjour! Je suis Storm, votre compagnon de santé mentale IA. Comment vous sentez-vous aujourd\'hui?',
-                
-                // Sidebar
-                'emotion-detection': 'Détection d\'Émotions',
-                'emotion-sad': 'Triste',
-                'emotion-anxious': 'Anxieux',
-                'emotion-neutral': 'Neutre',
-                'emotion-happy': 'Heureux',
-                'memory-tracking': 'Suivi de la Mémoire',
-                'no-memories': 'Pas de souvenirs pour l\'instant',
-                'safety-alerts': 'Alertes de Sécurité',
-                
-                // Recommendations
-                'recommendations': 'Recommandations Personnalisées',
-                'rec-meditation': 'Méditation',
-                'rec-meditation-desc': 'Pratiquez la pleine conscience et les exercices de respiration pour réduire l\'anxiété.',
-                'rec-exercise': 'Exercice',
-                'rec-exercise-desc': 'L\'activité physique régulière améliore la santé mentale et l\'humeur.',
-                'rec-sleep': 'Sommeil',
-                'rec-sleep-desc': 'Assurez-vous de dormir 7-9 heures pour la clarté mentale et la régulation émotionnelle.',
-                
-                // Mental Health Resources
-                'mental-health-resources': 'Ressources de Santé Mentale',
-                
-                // Stats
-                'conversation-stats': 'Statistiques de Conversation',
-                'stat-messages': 'Messages Échangés',
-                'stat-session-time': 'Durée de la Session',
-                'stat-mood-average': 'Humeur Moyenne',
-                'stat-top-emotion': 'Émotion Dominante',
-                
-                // Footer
-                'footer': 'Storm © 2026 | Votre Compagnon de Santé Mentale | Politique de Confidentialité | Conditions d\'Utilisation',
-                
-                // AI Responses
-                'response-sad': 'Je comprends que vous vous sentez triste. C\'est normal de ressentir cela. Voulez-vous en parler? Chercher du soutien est une force.',
-                'response-anxious': 'Je sens que vous pourriez être anxieux. Prenez une profonde respiration. L\'anxiété est gérable, et je suis là pour vous aider.',
-                'response-happy': 'C\'est merveilleux! Votre énergie positive est inspirante. Continuez à nourrir ces bons sentiments et partagez ce qui vous rend heureux.',
-                'response-neutral': 'Merci de partager. Je vous écoute et je suis là pour vous soutenir. N\'hésitez pas à exprimer tout ce qui vous préoccupe.',
-                'response-crisis': 'Je suis préoccupé par ce que vous avez partagé. Veuillez contacter immédiatement un professionnel de la santé mentale ou une ligne d\'aide. Votre sécurité est primordiale.',
-            }
-        };
+        const chatArea = document.getElementById('chatArea');
+        const messageInput = document.getElementById('messageInput');
+        const sendBtn = document.getElementById('sendBtn');
+        const emotionDisplay = document.getElementById('emotion');
 
-        // Mental Health Resources
-        const resources = {
-            en: [
-                {
-                    name: '🇺🇸 National Suicide Prevention Lifeline (USA)',
-                    info: 'Free, confidential support available 24/7. Call or text for immediate help.',
-                    phone: '988',
-                    link: 'tel:988'
-                },
-                {
-                    name: '🇬🇧 Samaritans (UK)',
-                    info: 'Available 24 hours every day of the year. Emotional support for anyone in distress.',
-                    phone: '116 123',
-                    link: 'tel:+441164123'
-                },
-                {
-                    name: '🌍 International Association for Suicide Prevention',
-                    info: 'Global resources and crisis lines for mental health support.',
-                    phone: 'Find local resources',
-                    link: 'https://www.iasp.info/resources/Crisis_Centres/'
-                },
-                {
-                    name: '💻 Crisis Text Line',
-                    info: 'Text-based crisis support available anytime.',
-                    phone: 'Text HOME to 741741',
-                    link: 'https://www.crisistextline.org/'
-                },
-                {
-                    name: '🏥 NAMI Helpline (USA)',
-                    info: 'Information and referrals for mental health services and support groups.',
-                    phone: '1-800-950-6264',
-                    link: 'tel:+18009506264'
-                },
-                {
-                    name: '🧠 Mental Health Foundation (UK)',
-                    info: 'Resources, information, and support for mental wellbeing.',
-                    phone: 'Visit Website',
-                    link: 'https://www.mentalhealth.org.uk/'
-                }
+        // AI Response Database with varied, natural responses
+        const aiResponses = {
+            greeting: [
+                "Hey there! What's on your mind?",
+                "Hi! Great to see you. What can I help with?",
+                "Hey! I'm all ears. What's up?",
+                "Welcome! How can I assist you today?"
             ],
-            fr: [
-                {
-                    name: '🇫🇷 SOS Amitié',
-                    info: 'Écoute 24h/24 pour les personnes en détresse. Confidentiel et gratuit.',
-                    phone: '09 72 39 40 50',
-                    link: 'tel:+33972394050'
-                },
-                {
-                    name: '🇫🇷 3114 - Numéro National de Prévention du Suicide',
-                    info: 'Appel gratuit et confidentiel, 24h/24, 7j/7. Professionnel formés à votre écoute.',
-                    phone: '3114',
-                    link: 'tel:3114'
-                },
-                {
-                    name: '🇫🇷 SOS Suicide Phénix',
-                    info: 'Association française d\'aide aux personnes en situation de crise suicidaire.',
-                    phone: '01 40 44 46 45',
-                    link: 'tel:+33140444645'
-                },
-                {
-                    name: '🇫🇷 France Dépression',
-                    info: 'Soutien et information pour les personnes atteintes de dépression.',
-                    phone: 'Consulter le site',
-                    link: 'https://www.france-depression.org/'
-                },
-                {
-                    name: '🇫🇷 Psydologues.fr',
-                    info: 'Accès à des psychologues professionnels et consultation en ligne.',
-                    phone: 'En ligne',
-                    link: 'https://www.psydologues.fr/'
-                },
-                {
-                    name: '🌍 International Association for Suicide Prevention',
-                    info: 'Ressources mondiales et lignes d\'écoute pour le soutien à la santé mentale.',
-                    phone: 'Trouver des ressources',
-                    link: 'https://www.iasp.info/resources/Crisis_Centres/'
-                }
+            help: [
+                "I'm here to chat, answer questions, or just keep you company.",
+                "I can help with information, have conversations, or brainstorm ideas with you.",
+                "Need something? I'm ready to help with whatever you throw at me."
+            ],
+            general: [
+                "That's interesting! Tell me more.",
+                "I see where you're coming from. What do you mean by that?",
+                "Got it! That makes sense.",
+                "Fascinating perspective. What made you think of that?",
+                "I hear you. Any other thoughts on this?"
+            ],
+            curious: [
+                "Oh, that's cool! Want to explore that further?",
+                "Intriguing! What's your take on it?",
+                "That catches my interest. Keep going!",
+                "Now that's something I'd like to hear more about."
+            ],
+            thoughtful: [
+                "That's a deep thought. Have you considered...?",
+                "That requires some serious thinking. Interesting angle.",
+                "You're making me think here. I like that.",
+                "That's philosophical! I respect that."
+            ],
+            gaming: [
+                "Are you a gamer too? What's your favorite game?",
+                "Gaming is incredible! Do you play competitively?",
+                "That reminds me of a gaming scenario. Have you played anything like it?",
+                "Sounds like an epic gaming moment!"
+            ],
+            default: [
+                "Interesting perspective on that!",
+                "I hear what you're saying.",
+                "That's a cool way to look at it.",
+                "Makes sense! Anything else?",
+                "I'm following you on that."
             ]
         };
 
-        // Global Variables
-        let currentLanguage = 'en';
-        let conversationHistory = [];
-        let emotionCounts = { sad: 0, anxious: 0, neutral: 0, happy: 0 };
-        let memories = [];
-        let sessionStartTime = Date.now();
-        let messageCount = 0;
+        const emotions = [
+            'Listening...',
+            'Thinking...',
+            'Engaged',
+            'Curious',
+            'Focused',
+            'Thoughtful',
+            'Ready to Help',
+            'Intrigued'
+        ];
 
-        // Change Language
-        function changeLanguage(lang) {
-            currentLanguage = lang;
-            document.documentElement.lang = lang;
-            
-            // Update all elements with data-text attribute
-            document.querySelectorAll('[data-text]').forEach(element => {
-                const key = element.getAttribute('data-text');
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
+        let emotionIndex = 0;
 
-            // Update input placeholder
-            const input = document.getElementById('userInput');
-            input.placeholder = translations[lang]['input-placeholder'];
-
-            // Update resources
-            updateResources();
-
-            // Update chat greeting if it's the first message
-            if (conversationHistory.length === 0) {
-                const chatMessages = document.getElementById('chatMessages');
-                chatMessages.innerHTML = `
-                    <div class="message ai">
-                        <div>${translations[lang]['greeting']}</div>
-                    </div>
-                `;
-            }
+        // Update emotion display
+        function updateEmotion() {
+            emotionDisplay.textContent = emotions[emotionIndex];
+            emotionIndex = (emotionIndex + 1) % emotions.length;
         }
 
-        // Toggle Dark Mode
-        function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        }
+        setInterval(updateEmotion, 4000);
 
-        // Update Language Buttons
-        function updateLanguageButtons() {
-            document.querySelectorAll('.lang-btn').forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.getAttribute('data-lang') === currentLanguage) {
-                    btn.classList.add('active');
-                }
-            });
-        }
-
-        // Emotion Detection
-        function detectEmotion(text) {
-            const lowerText = text.toLowerCase();
+        // Get varied AI response
+        function getAIResponse(userMessage) {
+            const lowerMessage = userMessage.toLowerCase();
             
-            // Sad indicators
-            if (/sad|depressed|unhappy|miserable|awful|terrible|worst|hate|useless|worthless/.test(lowerText)) {
-                emotionCounts.sad++;
-                return 'sad';
+            if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+                return getRandomResponse(aiResponses.greeting);
+            }
+            if (lowerMessage.includes('help') || lowerMessage.includes('can you')) {
+                return getRandomResponse(aiResponses.help);
+            }
+            if (lowerMessage.includes('game') || lowerMessage.includes('play') || lowerMessage.includes('gaming')) {
+                return getRandomResponse(aiResponses.gaming);
+            }
+            if (lowerMessage.includes('think') || lowerMessage.includes('what about') || lowerMessage.includes('how do')) {
+                return getRandomResponse(aiResponses.thoughtful);
+            }
+            if (lowerMessage.includes('?')) {
+                return getRandomResponse(aiResponses.curious);
             }
             
-            // Anxious indicators
-            if (/anxious|worried|nervous|stressed|stressed out|panic|scared|afraid|overwhelmed|stressed/.test(lowerText)) {
-                emotionCounts.anxious++;
-                return 'anxious';
-            }
-            
-            // Happy indicators
-            if (/happy|great|wonderful|awesome|excellent|love|amazing|fantastic|brilliant|grateful/.test(lowerText)) {
-                emotionCounts.happy++;
-                return 'happy';
-            }
-            
-            // Default to neutral
-            emotionCounts.neutral++;
-            return 'neutral';
+            return getRandomResponse(aiResponses.default);
         }
 
-        // Generate AI Response
-        function generateAIResponse(userMessage, detectedEmotion) {
-            const responses = {
-                sad: translations[currentLanguage]['response-sad'],
-                anxious: translations[currentLanguage]['response-anxious'],
-                happy: translations[currentLanguage]['response-happy'],
-                neutral: translations[currentLanguage]['response-neutral']
-            };
-
-            // Check for crisis keywords
-            const crisisKeywords = /suicide|kill myself|self harm|harm myself|end it|jump|overdose|want to die|better off dead|no point|give up/i;
-            if (crisisKeywords.test(userMessage)) {
-                showSafetyAlert('critical');
-                return translations[currentLanguage]['response-crisis'];
-            }
-
-            // Check for concerning keywords
-            const concerningKeywords = /very sad|extremely anxious|can't cope|breaking down|feel lost|hopeless|helpless/i;
-            if (concerningKeywords.test(userMessage)) {
-                showSafetyAlert('warning');
-            }
-
-            return responses[detectedEmotion] || responses.neutral;
+        function getRandomResponse(responseArray) {
+            return responseArray[Math.floor(Math.random() * responseArray.length)];
         }
 
-        // Send Message
+        // Send message
         function sendMessage() {
-            const input = document.getElementById('userInput');
-            const message = input.value.trim();
-            
+            const message = messageInput.value.trim();
             if (!message) return;
 
             // Add user message
             addMessage(message, 'user');
-            conversationHistory.push({ role: 'user', content: message });
-            messageCount++;
-            
-            // Detect emotion
-            const emotion = detectEmotion(message);
-            
-            // Store memory
-            storeMemory(message, emotion);
-            
-            // Update stats
-            updateStats();
-            updateEmotionStats();
+            messageInput.value = '';
+            messageInput.focus();
 
-            // Clear input
-            input.value = '';
-            input.focus();
-
-            // Show typing indicator
-            showTypingIndicator();
-
-            // Generate AI response
+            // Simulate AI thinking and response
             setTimeout(() => {
-                const aiResponse = generateAIResponse(message, emotion);
-                removeTypingIndicator();
-                addMessage(aiResponse, 'ai', emotion);
-                conversationHistory.push({ role: 'ai', content: aiResponse });
-            }, 1000 + Math.random() * 1000);
+                const aiResponse = getAIResponse(message);
+                addMessage(aiResponse, 'ai');
+                emotionDisplay.textContent = 'Engaged';
+            }, 600);
         }
 
-        // Add Message to Chat
-        function addMessage(text, role, emotion = null) {
-            const chatMessages = document.getElementById('chatMessages');
+        function addMessage(text, sender) {
             const messageDiv = document.createElement('div');
-            messageDiv.className = `message ${role}`;
+            messageDiv.class = `message ${sender}-message`;
             
-            let content = `<div>${text}</div>`;
+            const textDiv = document.createElement('div');
+            textDiv.className = `${sender}-text`;
+            textDiv.textContent = text;
             
-            if (emotion) {
-                content += `<div class="emotion-indicator emotion-${emotion}">${emotion.charAt(0).toUpperCase() + emotion.slice(1)}</div>`;
-            }
+            messageDiv.appendChild(textDiv);
+            chatArea.appendChild(messageDiv);
             
-            messageDiv.innerHTML = content;
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+            // Scroll to bottom
+            chatArea.scrollTop = chatArea.scrollHeight;
         }
 
-        // Typing Indicator
-        function showTypingIndicator() {
-            const chatMessages = document.getElementById('chatMessages');
-            const typingDiv = document.createElement('div');
-            typingDiv.className = 'message ai';
-            typingDiv.id = 'typingIndicator';
-            typingDiv.innerHTML = '<div class="typing-indicator"><span></span><span></span><span></span></div>';
-            chatMessages.appendChild(typingDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        function removeTypingIndicator() {
-            const typingDiv = document.getElementById('typingIndicator');
-            if (typingDiv) typingDiv.remove();
-        }
-
-        // Store Memory
-        function storeMemory(message, emotion) {
-            const timestamp = new Date().toLocaleTimeString(currentLanguage === 'en' ? 'en-US' : 'fr-FR');
-            memories.push({
-                message: message.substring(0, 50) + (message.length > 50 ? '...' : ''),
-                emotion: emotion,
-                timestamp: timestamp
-            });
-
-            // Keep only last 5 memories
-            if (memories.length > 5) {
-                memories.shift();
-            }
-
-            updateMemoryList();
-        }
-
-        // Update Memory List
-        function updateMemoryList() {
-            const memoryList = document.getElementById('memoryList');
-            memoryList.innerHTML = memories.map(mem => 
-                `<div class="memory-item">
-                    <strong>${mem.emotion}:</strong> "${mem.message}"
-                    <br><small>${mem.timestamp}</small>
-                </div>`
-            ).join('');
-
-            if (memories.length === 0) {
-                memoryList.innerHTML = `<div class="memory-item">${translations[currentLanguage]['no-memories']}</div>`;
-            }
-        }
-
-        // Update Emotion Stats
-        function updateEmotionStats() {
-            const total = Object.values(emotionCounts).reduce((a, b) => a + b, 0) || 1;
-            document.getElementById('sadCount').textContent = Math.round((emotionCounts.sad / total) * 100) + '%';
-            document.getElementById('anxiousCount').textContent = Math.round((emotionCounts.anxious / total) * 100) + '%';
-            document.getElementById('neutralCount').textContent = Math.round((emotionCounts.neutral / total) * 100) + '%';
-            document.getElementById('happyCount').textContent = Math.round((emotionCounts.happy / total) * 100) + '%';
-        }
-
-        // Safety Alert
-        function showSafetyAlert(level) {
-            const safetyAlertsDiv = document.getElementById('safetyAlerts');
-            
-            if (level === 'critical') {
-                const alertDiv = document.createElement('div');
-                alertDiv.className = 'alert danger';
-                alertDiv.innerHTML = `
-                    <div class="alert-icon">🚨</div>
-                    <div class="alert-content">
-                        <div class="alert-title">${currentLanguage === 'en' ? 'Crisis Support Needed' : 'Support en Crise Nécessaire'}</div>
-                        <div class="alert-message">${currentLanguage === 'en' ? 'Please contact emergency services or a crisis helpline immediately.' : 'Veuillez contacter les services d\'urgence ou une ligne d\'aide immédiatement.'}</div>
-                    </div>
-                </alert>`;
-                safetyAlertsDiv.innerHTML = alertDiv.innerHTML;
-            } else if (level === 'warning') {
-                const alertDiv = document.createElement('div');
-                alertDiv.className = 'alert warning';
-                alertDiv.innerHTML = `
-                    <div class="alert-icon">⚠️</div>
-                    <div class="alert-content">
-                        <div class="alert-title">${currentLanguage === 'en' ? 'Support Available' : 'Soutien Disponible'}</div>
-                        <div class="alert-message">${currentLanguage === 'en' ? 'Consider reaching out to a mental health professional.' : 'Envisagez de contacter un professionnel de la santé mentale.'}</div>
-                    </div>
-                </alert>`;
-                safetyAlertsDiv.innerHTML = alertDiv.innerHTML;
-            }
-        }
-
-        // Update Stats
-        function updateStats() {
-            document.getElementById('messageCount').textContent = messageCount;
-
-            // Session time
-            const sessionTime = Math.floor((Date.now() - sessionStartTime) / 60000);
-            document.getElementById('sessionTime').textContent = sessionTime + 'm';
-
-            // Mood average
-            const emotionValues = { sad: 1, anxious: 2, neutral: 3, happy: 4 };
-            const total = messageCount || 1;
-            const moodScore = (emotionCounts.sad * 1 + emotionCounts.anxious * 2 + emotionCounts.neutral * 3 + emotionCounts.happy * 4) / total;
-            const moodLabels = { en: ['—', 'Very Low', 'Low', 'Neutral', 'High', 'Very High'], fr: ['—', 'Très Bas', 'Bas', 'Neutre', 'Haut', 'Très Haut'] };
-            document.getElementById('moodAverage').textContent = moodLabels[currentLanguage][Math.round(moodScore)] || '—';
-
-            // Top emotion
-            const topEmotionKey = Object.keys(emotionCounts).reduce((a, b) => emotionCounts[a] > emotionCounts[b] ? a : b, 'neutral');
-            const emotionLabels = { en: { sad: 'Sad', anxious: 'Anxious', neutral: 'Neutral', happy: 'Happy' }, fr: { sad: 'Triste', anxious: 'Anxieux', neutral: 'Neutre', happy: 'Heureux' } };
-            document.getElementById('topEmotion').textContent = emotionLabels[currentLanguage][topEmotionKey];
-        }
-
-        // Update Resources
-        function updateResources() {
-            const resourcesList = document.getElementById('resourcesList');
-            const currentResources = resources[currentLanguage];
-            
-            resourcesList.innerHTML = currentResources.map(resource => 
-                `<div class="resource-card" onclick="window.location.href='${resource.link}'">
-                    <div class="resource-name">${resource.name}</div>
-                    <div class="resource-info">${resource.info}</div>
-                    <a href="${resource.link}" class="resource-phone">${resource.phone}</a>
-                </div>`
-            ).join('');
-        }
-
-        // Handle Enter Key
-        function handleKeyPress(event) {
-            if (event.key === 'Enter') {
-                sendMessage();
-            }
-        }
-
-        // Load Saved Preferences
-        function loadPreferences() {
-            const darkMode = localStorage.getItem('darkMode') === 'true';
-            const savedLanguage = localStorage.getItem('language') || 'en';
-            
-            if (darkMode) {
-                document.body.classList.add('dark-mode');
-            }
-            
-            currentLanguage = savedLanguage;
-            changeLanguage(currentLanguage);
-            updateLanguageButtons();
-        }
-
-        // Save Preferences
-        function savePreferences() {
-            localStorage.setItem('language', currentLanguage);
-            localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
-        }
-
-        // Initialize
-        window.addEventListener('load', () => {
-            loadPreferences();
-            updateResources();
-            updateMemoryList();
-            updateEmotionStats();
+        // Event listeners
+        sendBtn.addEventListener('click', sendMessage);
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') sendMessage();
         });
 
-        // Save preferences when language or dark mode changes
-        window.addEventListener('beforeunload', savePreferences);
+        // Initial greeting
+        window.addEventListener('load', () => {
+            addMessage("Hey! I'm Storm, your AI companion. What would you like to chat about?", 'ai');
+        });
     </script>
 </body>
 </html>
